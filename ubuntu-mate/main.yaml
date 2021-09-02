@@ -1,0 +1,36 @@
+---
+- name: Provision localhost
+  hosts: localhost
+  connection: local
+
+  pre_tasks:
+    - name: Update and upgrade apt system packages
+      become: true
+      apt:
+        upgrade: "yes" # In addition to yes and no you can use dist, full, or safe, therefore it is a string
+        update_cache: yes
+    - name: Install additional packages
+      become: true
+      package:
+        name:
+          - emacs
+          - fonts-powerline
+  roles:
+    - role: gantsign.oh-my-zsh
+      oh_my_zsh_theme: agnoster
+      oh_my_zsh_plugins:
+        - git
+      users:
+        - username: "{{ ansible_env.USER }}"
+
+  post_tasks:
+    - name: Switch to zsh
+      become: yes
+      user:
+        name: "{{ ansible_env.USER }}"
+        shell: /usr/bin/zsh
+    - name: Add git graph alias
+      community.general.git_config:
+        name: alias.graph
+        scope: global
+        value: 'log --graph --abbrev-commit --decorate --date=relative --date-order --format=format:"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(yellow)- [%an]%C(reset)%C(auto)%d%C(reset)" --all'
