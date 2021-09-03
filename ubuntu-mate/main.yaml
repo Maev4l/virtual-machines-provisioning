@@ -2,6 +2,9 @@
 - name: Provision localhost
   hosts: localhost
   connection: local
+  vars:
+    git_username:
+    git_email:
 
   pre_tasks:
     - name: Update and upgrade apt system packages
@@ -35,6 +38,16 @@
         name: alias.graph
         scope: global
         value: 'log --graph --abbrev-commit --decorate --date=relative --date-order --format=format:"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(yellow)- [%an]%C(reset)%C(auto)%d%C(reset)" --all'
+    - name: Add git username
+      community.general.git_config:
+        name: user.name
+        scope: global
+        value: "{{ git_username }}"
+    - name: Add git email
+      community.general.git_config:
+        name: user.email
+        scope: global
+        value: "{{ git_email }}"
     - name: Add user to virtualbox group
       become: true
       user:
