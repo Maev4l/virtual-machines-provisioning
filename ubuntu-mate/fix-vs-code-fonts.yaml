@@ -1,0 +1,25 @@
+---
+- name: Create temporary directory for patched fonts
+  tempfile:
+    state: directory
+    prefix: patched-fonts-
+  register: temp_folder
+
+- name: Download patched fonts
+  git:
+    repo: https://github.com/abertsch/Menlo-for-Powerline.git
+    dest: "{{ temp_folder.path }}"
+
+- name: Copy font
+  copy:
+    src: "{{ temp_folder.path}}/Menlo\ for\ Powerline.ttf"
+    dest: "~/.fonts/"
+    remote_src: yes
+
+- name: Register font
+  shell: fc-cache -vf ~/.fonts
+
+- name: Remove temporary directory for patched fonts
+  file:
+    path: "{{ temp_folder.path }}"
+    state: absent

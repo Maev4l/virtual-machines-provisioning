@@ -11,7 +11,7 @@ sudo apt install -y ansible git
 
 ```
 ansible-galaxy install -r requirements.yaml
-ansible-galaxy install collection -r requirements.yaml
+ansible-galaxy collection install -r requirements.yaml
 ansible-playbook main.yaml --ask-become-pass --extra-vars "git_username=<username> git_email=<email>"
 ```
 
