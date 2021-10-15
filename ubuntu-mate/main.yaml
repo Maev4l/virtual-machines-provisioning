@@ -39,7 +39,6 @@
               "terminal.integrated.fontFamily": "Menlo for Powerline",
               "terminal.integrated.shell.linux": "/usr/bin/zsh"
             }
-
   post_tasks:
     - name: Switch to zsh
       become: yes
@@ -63,6 +62,8 @@
         value: "{{ git_email }}"
     - name: Fix fonts for VS Code
       import_tasks: fix-vs-code-fonts.yaml
+    - name: Install OCaml
+      import_tasks: ocaml.yaml
     - name: Add user to virtualbox group
       become: true
       user:

@@ -1,0 +1,6 @@
+---
+- name: Install Tuareg
+  become: true
+  package:
+    name:
+      - tuareg-mode
