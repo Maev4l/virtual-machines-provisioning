@@ -3,8 +3,8 @@
   hosts: localhost
   connection: local
   vars:
-    git_username:
-    git_email:
+    git_username: ''
+    git_email: ''
 
   pre_tasks:
     - name: Update and upgrade apt system packages
@@ -45,6 +45,7 @@
       user:
         name: "{{ ansible_env.USER }}"
         shell: /usr/bin/zsh
+      when: ansible_env.SHELL != '/usr/bin/zsh'
     - name: Add git graph alias
       community.general.git_config:
         name: alias.graph
@@ -55,13 +56,13 @@
         name: user.name
         scope: global
         value: "{{ git_username }}"
-        when: git_username|length > 0
+      when: git_username|length > 0
     - name: Add git email
       community.general.git_config:
         name: user.email
         scope: global
         value: "{{ git_email }}"
-        when: git_email|length > 0
+      when: git_email|length > 0
     - name: Fix fonts for VS Code
       import_tasks: fix-vs-code-fonts.yaml
     - name: Install OCaml
