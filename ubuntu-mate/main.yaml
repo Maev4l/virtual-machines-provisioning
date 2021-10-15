@@ -48,6 +48,8 @@
       when: ansible_env.SHELL != '/usr/bin/zsh'
     - name: Configure git
       import_tasks: git.yaml
+    - name: Generate SSH key pair
+      import_tasks: ssh.yaml
     - name: Fix fonts for VS Code
       import_tasks: fix-vs-code-fonts.yaml
     - name: Install OCaml

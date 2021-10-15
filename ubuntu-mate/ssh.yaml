@@ -1,0 +1,14 @@
+---
+- name: Create .ssh folder
+  file:
+    path: "~/.ssh"
+    state: directory
+    mode: "700"
+
+- name: Generate SSH key pair
+  openssh_keypair:
+    path: "~/.ssh/id_rsa"
+    type: rsa
+    size: 4096
+    state: present
+    force: no
