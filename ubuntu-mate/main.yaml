@@ -46,23 +46,8 @@
         name: "{{ ansible_env.USER }}"
         shell: /usr/bin/zsh
       when: ansible_env.SHELL != '/usr/bin/zsh'
-    - name: Add git graph alias
-      community.general.git_config:
-        name: alias.graph
-        scope: global
-        value: 'log --graph --abbrev-commit --decorate --date=relative --date-order --format=format:"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(yellow)- [%an]%C(reset)%C(auto)%d%C(reset)" --all'
-    - name: Add git username
-      community.general.git_config:
-        name: user.name
-        scope: global
-        value: "{{ git_username }}"
-      when: git_username|length > 0
-    - name: Add git email
-      community.general.git_config:
-        name: user.email
-        scope: global
-        value: "{{ git_email }}"
-      when: git_email|length > 0
+    - name: Configure git
+      import_tasks: git.yaml
     - name: Fix fonts for VS Code
       import_tasks: fix-vs-code-fonts.yaml
     - name: Install OCaml
