@@ -3,8 +3,8 @@
   hosts: localhost
   connection: local
   vars:
-    git_username: ''
-    git_email: ''
+    git_username: ""
+    git_email: ""
 
   pre_tasks:
     - name: Update and upgrade apt system packages
@@ -33,11 +33,10 @@
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
             {
-              "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
               "editor.formatOnSave": true,
               "editor.renderWhitespace": "boundary",
               "terminal.integrated.fontFamily": "Menlo for Powerline",
-              "terminal.integrated.shell.linux": "/usr/bin/zsh"
+              "terminal.integrated.shell.linux": "/usr/bin/zsh",
             }
   post_tasks:
     - name: Switch to zsh
