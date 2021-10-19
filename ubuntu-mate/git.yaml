@@ -5,6 +5,7 @@
     name:
       - git
       - gitk
+    state: present
 
 - name: Check graph alias
   community.general.git_config:

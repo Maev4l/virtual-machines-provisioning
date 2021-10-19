@@ -5,3 +5,4 @@
     name:
       - ocaml
       - tuareg-mode
+    state: present

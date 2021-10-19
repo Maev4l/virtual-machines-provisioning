@@ -18,6 +18,7 @@
         name:
           - emacs
           - fonts-powerline
+        state: present
   roles:
     - role: gantsign.oh-my-zsh
       oh_my_zsh_theme: agnoster
