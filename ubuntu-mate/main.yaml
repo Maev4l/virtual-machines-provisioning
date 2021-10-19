@@ -18,7 +18,6 @@
         name:
           - emacs
           - fonts-powerline
-          - gitk
   roles:
     - role: gantsign.oh-my-zsh
       oh_my_zsh_theme: agnoster
@@ -45,11 +44,11 @@
         name: "{{ ansible_env.USER }}"
         shell: /usr/bin/zsh
       when: ansible_env.SHELL != '/usr/bin/zsh'
-    - name: Configure git
+    - name: Install git
       import_tasks: git.yaml
     - name: Generate SSH key pair
       import_tasks: ssh.yaml
-    - name: Fix fonts for VS Code
+    - name: Configure VS Code
       import_tasks: fix-vs-code-fonts.yaml
     - name: Install OCaml
       import_tasks: ocaml.yaml
