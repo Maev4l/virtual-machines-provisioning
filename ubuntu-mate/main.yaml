@@ -5,7 +5,7 @@
   vars:
     git_username: ""
     git_email: ""
-
+    virtualenv_folder: ~/venv/python3
   pre_tasks:
     - name: Update and upgrade apt system packages
       become: true
@@ -19,6 +19,8 @@
           - emacs
           - fonts-powerline
         state: present
+    - name: Install python 3.x
+      import_tasks: python.yaml
   roles:
     - role: gantsign.oh-my-zsh
       oh_my_zsh_theme: agnoster
@@ -29,7 +31,8 @@
     - role: gantsign.visual-studio-code
       users:
         - username: "{{ ansible_env.USER }}"
-          visual_studio_code_extensions: []
+          visual_studio_code_extensions:
+            - ms-python.python
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
             {
@@ -37,6 +40,12 @@
               "editor.renderWhitespace": "boundary",
               "terminal.integrated.fontFamily": "Menlo for Powerline",
               "terminal.integrated.shell.linux": "/usr/bin/zsh",
+              "python.pythonPath": "{{ virtualenv_folder }}/bin/python",
+              "python.linting.flake8Enabled": true,
+              "python.linting.flake8Path": "{{ virtualenv_folder }}flake8",
+              "python.linting.enabled": false,
+              "python.formatting.autopep8Path": "{{ virtualenv_folder }}/bin/autopep8",
+              "python.defaultInterpreterPath": "{{ virtualenv_folder }}/bin/python",
             }
   post_tasks:
     - name: Switch to zsh
