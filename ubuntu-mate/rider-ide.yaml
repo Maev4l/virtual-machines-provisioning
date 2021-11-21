@@ -1,0 +1,6 @@
+---
+- name: Install Rider IDE
+  become: true
+  community.general.snap:
+    name: rider
+    classic: yes

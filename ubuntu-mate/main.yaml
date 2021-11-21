@@ -65,6 +65,8 @@
       import_tasks: fix-vs-code-fonts.yaml
     - name: Install OCaml
       import_tasks: ocaml.yaml
+    - name: Install Rider IDE
+      import_tasks: rider-ide.yaml
     - name: Add user to virtualbox group
       become: true
       user:
