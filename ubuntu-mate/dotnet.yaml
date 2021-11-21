@@ -21,6 +21,7 @@
   package:
     name:
       - dotnet-sdk-6.0
+      - dotnet-sdk-5.0
     state: present
     update_cache: yes
 
