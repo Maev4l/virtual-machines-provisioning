@@ -1,0 +1,30 @@
+---
+# see https://docs.microsoft.com/fr-fr/dotnet/core/install/linux-ubuntu
+
+- name: Create temporary directory for Microsoft pre-requisite package
+  tempfile:
+    state: directory
+    prefix: dotnet-
+  register: temp_folder
+
+- name: Download MS product repository
+  get_url:
+    url: https://packages.microsoft.com/config/ubuntu/{{ ansible_distribution_version }}/packages-microsoft-prod.deb
+    dest: "{{ temp_folder.path }}/packages-microsoft-prod.deb"
+
+- name: Install MS product repository
+  apt: "deb={{ temp_folder.path }}/packages-microsoft-prod.deb"
+  become: true
+
+- name: Install .Net SDK
+  become: true
+  package:
+    name:
+      - dotnet-sdk-6.0
+    state: present
+    update_cache: yes
+
+- name: Remove temporary directory for Microsoft pre-requisite package
+  file:
+    path: "{{ temp_folder.path }}"
+    state: absent

@@ -18,9 +18,12 @@
         name:
           - emacs
           - fonts-powerline
+          - apt-transport-https
         state: present
     - name: Install python 3.x
       import_tasks: python.yaml
+    - name: Install .Net
+      import_tasks: dotnet.yaml
   roles:
     - role: gantsign.oh-my-zsh
       oh_my_zsh_theme: agnoster
