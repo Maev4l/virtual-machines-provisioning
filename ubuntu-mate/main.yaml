@@ -45,7 +45,7 @@
               "terminal.integrated.shell.linux": "/usr/bin/zsh",
               "python.pythonPath": "{{ virtualenv_folder }}/bin/python",
               "python.linting.flake8Enabled": true,
-              "python.linting.flake8Path": "{{ virtualenv_folder }}flake8",
+              "python.linting.flake8Path": "{{ virtualenv_folder }}/flake8",
               "python.linting.enabled": false,
               "python.formatting.autopep8Path": "{{ virtualenv_folder }}/bin/autopep8",
               "python.defaultInterpreterPath": "{{ virtualenv_folder }}/bin/python",
