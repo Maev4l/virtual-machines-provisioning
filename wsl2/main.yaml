@@ -1,0 +1,48 @@
+---
+- name: Provision localhost
+  hosts: localhost
+  connection: local
+  vars:
+    git_username: ""
+    git_email: ""
+    virtualenv_folder: ~/venv/python3
+  pre_tasks:
+    - name: Update and upgrade apt system packages
+      become: true
+      apt:
+        upgrade: "yes" # In addition to yes and no you can use dist, full, or safe, therefore it is a string
+        update_cache: yes
+    - name: Install additional packages
+      become: true
+      package:
+        name:
+          - emacs
+          - fonts-powerline
+          - apt-transport-https
+        state: present
+    - name: Install python 3.x
+      import_tasks: python.yaml
+    - name: Install .Net
+      import_tasks: dotnet.yaml
+  roles:
+    - role: gantsign.oh-my-zsh
+      oh_my_zsh_theme: agnoster
+      oh_my_zsh_plugins:
+        - git
+      users:
+        - username: "{{ ansible_env.USER }}"
+  post_tasks:
+    - name: Switch to zsh
+      become: yes
+      user:
+        name: "{{ ansible_env.USER }}"
+        shell: /usr/bin/zsh
+      when: ansible_env.SHELL != '/usr/bin/zsh'
+    - name: Install git
+      import_tasks: git.yaml
+    - name: Generate SSH key pair
+      import_tasks: ssh.yaml
+    - name: Install OCaml
+      import_tasks: ocaml.yaml
+    #- name: Install Rider IDE
+    #  import_tasks: rider-ide.yaml

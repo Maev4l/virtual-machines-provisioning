@@ -1,0 +1,35 @@
+---
+- name: Install gitk package
+  become: true
+  package:
+    name:
+      - git
+      - gitk
+    state: present
+
+- name: Check graph alias
+  community.general.git_config:
+    name: alias.graph
+    scope: global
+  register: git_graph_alias
+
+- name: Add git graph alias
+  community.general.git_config:
+    name: alias.graph
+    scope: global
+    value: 'log --graph --abbrev-commit --decorate --date=relative --date-order --format=format:"%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(yellow)- [%an]%C(reset)%C(auto)%d%C(reset)" --all'
+  when: git_graph_alias.config_value | default("") | length == 0
+
+- name: Add git username
+  community.general.git_config:
+    name: user.name
+    scope: global
+    value: "{{ git_username }}"
+  when: git_username | length > 0
+
+- name: Add git email
+  community.general.git_config:
+    name: user.email
+    scope: global
+    value: "{{ git_email }}"
+  when: git_email | length > 0

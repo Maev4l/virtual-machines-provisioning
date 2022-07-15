@@ -1,0 +1,6 @@
+---
+roles:
+  - src: gantsign.oh-my-zsh
+collections:
+  - name: community.general
+    source: https://galaxy.ansible.com

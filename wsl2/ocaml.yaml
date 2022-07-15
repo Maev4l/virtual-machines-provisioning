@@ -1,0 +1,8 @@
+---
+- name: Install OCaml
+  become: true
+  package:
+    name:
+      - ocaml
+      - tuareg-mode
+    state: present
